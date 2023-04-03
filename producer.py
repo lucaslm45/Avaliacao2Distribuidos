@@ -1,32 +1,30 @@
 from confluent_kafka import Producer
-from faker import Faker
-import json
 import time
-import logging
-import sys
 import random
 
-fake=Faker()
+p = Producer({'bootstrap.servers':'localhost:9092'})
 
-p=Producer({'bootstrap.servers':'localhost:9092'})
-
-print('Kafka Producer has been initiated...')
+print('Kafka Producer 1 has been initiated...')
+topic1 = "esporte"
+topic2 = "clima"
+esporte = ["Esporte 1", "Esporte 2", "Esporte 3", "Esporte 4"]
+clima = ["Clima 1", "Clima 2", "Clima 3", "Clima 4"]
 
 def main():
-    for i in range(100):
-        data={
-           'user_id': fake.random_int(min=20000, max=100000),
-           'user_name':fake.name(),
-           'user_address':fake.street_address() + ' | ' + fake.city() + ' | ' + fake.country_code(),
-           'platform': random.choice(['Mobile', 'Laptop', 'Tablet']),
-           'signup_at': str(fake.date_time_this_month()),
-           'message': str(fake.text())   
+    while(1):
+        mensagemEsporte = random.choice(esporte)
+        mensagemClima = random.choice(clima)
 
-           }
-        m=json.dumps(data)
         p.poll(1)
-        p.produce('user-tracker',m.encode('utf-8'))#,callback=receipt)
+        p.produce(topic1, mensagemEsporte.encode('utf-8'))
         p.flush()
+
+        time.sleep(1/2)
+        
+        p.poll(1)
+        p.produce(topic1, mensagemClima.encode('utf-8'))
+        p.flush()
+
         time.sleep(3)
         
 if __name__ == '__main__':

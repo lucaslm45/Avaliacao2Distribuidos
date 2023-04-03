@@ -8,7 +8,7 @@ def commit_completed(err, partitions):
 
 ################
 config = {'bootstrap.servers': 'localhost:9092,host2:9092',
-        'group.id': "python-consumer",
+        'group.id': "python-consumer1",
         'enable.auto.commit': True,
         'auto.offset.reset': 'earliest',
         'on_commit': commit_completed}
@@ -23,7 +23,7 @@ config = {'bootstrap.servers': 'localhost:9092,host2:9092',
 c = Consumer(config)
 print('Available topics to consume: ', c.list_topics().topics)
 
-c.subscribe(['user-tracker'])
+c.subscribe(['esporte'])
 
 ################
 
