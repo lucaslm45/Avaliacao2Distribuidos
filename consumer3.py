@@ -1,4 +1,4 @@
-# Cosumidor 1: consome saude e financas (topico 1 e 2, producer 1)
+# Cosumidor 2: consome esportes (topico 3, producer 2)
 
 from confluent_kafka import Consumer
 
@@ -9,17 +9,12 @@ from confluent_kafka import Consumer
 #        print("Committed partition offsets: " + str(partitions))
 
 ################
-config = {'bootstrap.servers':'localhost:9092','group.id':'consumer','auto.offset.reset':'earliest'}
-# {'bootstrap.servers': 'localhost:9092',
-#         'group.id': "python-consumer1",
-#         'enable.auto.commit': True,
-#         'auto.offset.reset': 'earliest'}
-# #        ,        'on_commit': commit_completed}
+config = {'bootstrap.servers':'localhost:9092','group.id':'consumer3','auto.offset.reset':'earliest'}
         
 c = Consumer(config)
 print('Tópicos disponíveis para consumo: ', c.list_topics().topics, "\n")
 
-c.subscribe(['saude', 'financas'])
+c.subscribe(['saude'])
 
 ################
 
