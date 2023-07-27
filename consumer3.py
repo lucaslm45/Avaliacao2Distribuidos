@@ -2,21 +2,12 @@
 
 from confluent_kafka import Consumer
 
-#def commit_completed(err, partitions):
-#    if err:
-#        print(str(err))
-#    else:
-#        print("Committed partition offsets: " + str(partitions))
-
-################
 config = {'bootstrap.servers':'localhost:9092','group.id':'consumer3','auto.offset.reset':'earliest'}
         
 c = Consumer(config)
 print('Tópicos disponíveis para consumo: ', c.list_topics().topics, "\n")
 
 c.subscribe(['saude'])
-
-################
 
 def main():
     while True:
